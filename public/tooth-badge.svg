@@ -1,0 +1,12 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="badge" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#12A2A2"/>
+      <stop offset="1" stop-color="#0B7380"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="url(#badge)"/>
+  <path d="M22 18C18.6 21.4 16.4 26.8 17.2 32.2C18.4 40.1 22.9 42.7 23.9 47.7C24.8 52.3 23.2 55.9 27 58.2C29.7 59.8 32 56.9 32 52.8C32 56.9 34.4 59.8 37.1 58.2C40.9 55.9 39.3 52.3 40.2 47.7C41.2 42.7 45.7 40.1 46.9 32.2C47.7 26.8 45.5 21.4 42.1 18C38.6 14.5 34.5 14 32 17C29.5 14 25.4 14.5 22 18Z" fill="#FFFFFF"/>
+  <path d="M32 25V33" stroke="#8BD3E9" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M27 30H37" stroke="#8BD3E9" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

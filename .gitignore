@@ -23,6 +23,9 @@
 # misc
 .DS_Store
 *.pem
+*.swp
+*.swo
+*~
 
 # debug
 npm-debug.log*
@@ -35,6 +38,17 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# editor directories
+.vscode/
+.idea/
+
+# cache/temp
+.cache/
+.eslintcache
+.turbo/
+tmp/
+temp/
 
 # typescript
 *.tsbuildinfo
