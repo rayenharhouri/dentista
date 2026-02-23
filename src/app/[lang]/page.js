@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import AppointmentForm from "@/components/AppointmentForm";
 
 const locales = ["it", "en", "ar"];
+const WHATSAPP_NOTIFY_TO = "393713946628";
 
 const translations = {
   it: {
@@ -638,7 +639,7 @@ export default async function LocalizedHome({ params }) {
           <AppointmentForm
             form={t.form}
             services={t.services}
-            whatsappNumber={t.phonePrimaryHref}
+            whatsappNumber={WHATSAPP_NOTIFY_TO}
             locale={lang}
           />
         </div>

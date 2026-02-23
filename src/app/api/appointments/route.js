@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const DEFAULT_NOTIFY_TO = "393208406049";
+const DEFAULT_NOTIFY_TO = "393713946628";
 
 const normalizeE164 = (value) => String(value || "").replace(/\D/g, "");
 
