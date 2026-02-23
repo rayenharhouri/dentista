@@ -47,6 +47,24 @@ a {
   gap: 24px;
 }
 
+.site-shell.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.site-shell.rtl .hero-top {
+  flex-direction: row-reverse;
+}
+
+.site-shell.rtl .card-head {
+  flex-direction: row-reverse;
+}
+
+.site-shell.rtl .service-list {
+  padding-left: 0;
+  padding-right: 18px;
+}
+
 .hero-booking {
   border-radius: 28px;
   border: 1px solid var(--line);
@@ -250,30 +268,8 @@ h3 {
   color: #284653;
 }
 
-.phone-input {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.phone-country {
-  min-height: 45px;
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid #b6deeb;
-  border-radius: 11px;
-  padding: 0 12px;
-  background: #f1fbff;
-  color: #245b68;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.phone-input input {
-  flex: 1;
-}
-
 .appointment-form input,
+.appointment-form textarea,
 .appointment-form select,
 .appointment-form button {
   min-height: 45px;
@@ -282,11 +278,18 @@ h3 {
 }
 
 .appointment-form input,
+.appointment-form textarea,
 .appointment-form select {
   border: 1px solid #b6deeb;
   padding: 0 12px;
   background: #ffffff;
   color: var(--ink);
+}
+
+.notes-input {
+  min-height: 96px;
+  padding: 10px 12px;
+  resize: vertical;
 }
 
 .appointment-form button {
@@ -300,6 +303,28 @@ h3 {
 
 .appointment-form button:hover {
   filter: brightness(1.07);
+}
+
+.whatsapp-note {
+  margin-top: 4px;
+  font-size: 0.84rem;
+  color: #3b5d68;
+}
+
+.status-note {
+  margin-top: 2px;
+  font-size: 0.84rem;
+  color: #2f4b57;
+}
+
+.status-note.success {
+  color: #0a7f56;
+  font-weight: 600;
+}
+
+.status-note.error {
+  color: #a04444;
+  font-weight: 600;
 }
 
 .content {
@@ -347,6 +372,7 @@ h3 {
   padding: 15px;
   display: grid;
   gap: 8px;
+  align-content: start;
 }
 
 .card-head {
@@ -358,6 +384,23 @@ h3 {
 .service-card h3,
 .certificate-card h3 {
   font-size: 1.35rem;
+}
+
+.service-card p {
+  margin-bottom: 4px;
+}
+
+.service-list {
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+  list-style: disc;
+}
+
+.service-list li {
+  color: #2f4b57;
+  line-height: 1.45;
+  font-size: 0.95rem;
 }
 
 .map-panel {

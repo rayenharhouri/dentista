@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AppointmentForm from "@/components/AppointmentForm";
 
-const locales = ["it", "en"];
+const locales = ["it", "en", "ar"];
 
 const translations = {
   it: {
@@ -29,22 +30,26 @@ const translations = {
     form: {
       nameLabel: "Nome e Cognome",
       namePlaceholder: "Il tuo nome completo",
-      phoneLabel: "Telefono",
-      phonePlaceholder: "320 840 6049",
-      phonePrefix: "+39",
-      phonePatternTitle:
-        "Inserisci un numero italiano valido. Esempio: +39 320 840 6049",
       serviceLabel: "Servizio",
       servicePlaceholder: "Seleziona un servizio",
       dateLabel: "Data preferita",
+      notesLabel: "Note (opzionale)",
+      notesPlaceholder: "Scrivi informazioni utili per l'appuntamento",
       submit: "Prenota Appuntamento",
+      whatsappMessageTitle: "Nuova richiesta appuntamento",
+      whatsappHint: "La richiesta viene inviata su WhatsApp alla clinica.",
+      sendingNotice: "Invio in corso...",
+      successNotice:
+        "Richiesta inviata con successo. Ti contatteremo presto.",
+      errorNotice:
+        "Invio automatico non disponibile. Si aprira WhatsApp con il messaggio pronto.",
     },
     aboutTitle: "Chi e Soliman?",
     aboutText:
       "Il Dott. Soliman Saffi e un dentista con forte preparazione accademica e clinica. Il suo approccio e diretto: diagnosi chiara, piano di cura pratico e follow-up affidabile.",
     servicesTitle: "Servizi",
     servicesText:
-      "I servizi principali includono riparazione dentale, terapia canalare e implantologia dentale.",
+      "Servizi completi di odontoiatria, chirurgia orale, implantologia e medicina estetica.",
     mapTitle: "Dove Siamo",
     mapText:
       "Lo studio si trova presso Saffi Dental Clinic. Apri la mappa per l'indirizzo completo.",
@@ -56,28 +61,127 @@ const translations = {
     languageLabel: "Lingua",
     services: [
       {
-        value: "repair-restoration",
-        title: "Riparazione e Restauro Dentale",
-        description:
-          "Riparazione dei denti danneggiati, fratturati o usurati con tecniche moderne di restauro.",
+        value: "odontoiatria-preventiva",
+        title: "Odontoiatria Preventiva",
+        description: "Serve a prevenire problemi dentali prima che compaiano.",
+        items: [
+          "Detartrasi (pulizia dentale professionale)",
+          "Fluoroprofilassi",
+          "Sigillatura dei solchi",
+          "Visita di controllo periodica",
+          "Igiene orale professionale",
+        ],
       },
       {
-        value: "root-canal",
-        title: "Terapia Canalare",
-        description:
-          "Trattamento canalare preciso per eliminare l'infezione, proteggere il dente e ridurre il dolore.",
+        value: "odontoiatria-conservativa",
+        title: "Odontoiatria Conservativa",
+        description: "Ripara i denti danneggiati da carie o traumi.",
+        items: [
+          "Otturazione (ricostruzione)",
+          "Ricostruzione estetica",
+          "Intarsi (in composito o ceramica)",
+          "Sigillatura terapeutica",
+        ],
       },
       {
-        value: "implantation",
-        title: "Implantologia Dentale",
-        description:
-          "Impianti dentali progettati per ripristinare funzione, comfort ed estetica del sorriso.",
+        value: "endodonzia",
+        title: "Endodonzia (Devitalizzazione)",
+        description: "Tratta l'infezione interna del dente.",
+        items: [
+          "Devitalizzazione (cura canalare)",
+          "Ritrattamento canalare",
+          "Incappucciamento pulpare",
+        ],
       },
       {
-        value: "checkups",
-        title: "Controlli Preventivi",
+        value: "parodontologia",
+        title: "Parodontologia",
+        description: "Cura gengive e osso che sostengono i denti.",
+        items: [
+          "Curettage",
+          "Scaling e root planing (levigatura radicolare)",
+          "Terapia della gengivite",
+          "Terapia della parodontite",
+          "Chirurgia parodontale",
+        ],
+      },
+      {
+        value: "chirurgia-orale",
+        title: "Chirurgia Orale",
+        description: "Interventi chirurgici su denti e bocca.",
+        items: [
+          "Estrazione dentale semplice",
+          "Estrazione denti del giudizio",
+          "Apicectomia",
+          "Frenulectomia",
+          "Inserimento impianti dentali",
+        ],
+      },
+      {
+        value: "implantologia",
+        title: "Implantologia",
         description:
-          "Visite periodiche e igiene per prevenire problemi e mantenere stabile la salute orale.",
+          "Sostituisce denti mancanti con radici artificiali in titanio.",
+        items: [
+          "Impianto singolo",
+          "Ponte su impianti",
+          "Protesi totale su impianti (All-on-4 / All-on-6)",
+          "Rigenerazione ossea",
+        ],
+      },
+      {
+        value: "ortodonzia",
+        title: "Ortodonzia",
+        description: "Allinea i denti e corregge la posizione delle arcate.",
+        items: [
+          "Apparecchio fisso",
+          "Apparecchio mobile",
+          "Allineatori trasparenti",
+          "Ortodonzia intercettiva (nei bambini)",
+          "Contenzione post-trattamento",
+        ],
+      },
+      {
+        value: "protesi-dentaria",
+        title: "Protesi Dentaria",
+        description: "Sostituisce o ricopre denti mancanti o danneggiati.",
+        items: [
+          "Corona (capsula)",
+          "Ponte dentale",
+          "Protesi mobile parziale",
+          "Dentiera completa",
+          "Protesi scheletrata",
+        ],
+      },
+      {
+        value: "odontoiatria-estetica",
+        title: "Odontoiatria Estetica",
+        description: "Migliora l'aspetto del sorriso.",
+        items: [
+          "Sbiancamento dentale",
+          "Faccette dentali",
+          "Contouring gengivale",
+          "Ricostruzioni estetiche",
+          "Smile makeover",
+        ],
+      },
+      {
+        value: "pedodonzia",
+        title: "Odontoiatria Pediatrica (Pedodonzia)",
+        description: "Cure dentali dedicate ai bambini.",
+        items: [
+          "Cura carie nei denti da latte",
+          "Sigillature preventive",
+          "Fluoroprofilassi pediatrica",
+          "Mantenitori di spazio",
+          "Gestione traumi dentali",
+        ],
+      },
+      {
+        value: "medicina-estetica",
+        title: "Medicina Estetica",
+        description: "Trattamenti estetici complementari al sorriso.",
+        items: ["Trattamento di pigmentazione e acne", "Filler", "Botox"],
       },
     ],
   },
@@ -105,22 +209,26 @@ const translations = {
     form: {
       nameLabel: "Full Name",
       namePlaceholder: "Your full name",
-      phoneLabel: "Phone Number",
-      phonePlaceholder: "320 840 6049",
-      phonePrefix: "🇮🇹 +39",
-      phonePatternTitle:
-        "Enter a valid Italian phone number. Example: +39 320 840 6049",
       serviceLabel: "Service",
       servicePlaceholder: "Select a service",
       dateLabel: "Preferred Date",
+      notesLabel: "Notes (optional)",
+      notesPlaceholder: "Write any useful details for the appointment",
       submit: "Take an Appointment",
+      whatsappMessageTitle: "New appointment request",
+      whatsappHint: "Your request is sent to the clinic on WhatsApp.",
+      sendingNotice: "Sending request...",
+      successNotice:
+        "Request sent successfully. We will contact you shortly.",
+      errorNotice:
+        "Automatic sending is unavailable. WhatsApp will open with a prefilled message.",
     },
     aboutTitle: "Who is Soliman?",
     aboutText:
       "Dr. Soliman Saffi is a dentist with strong academic and clinical training. His approach is direct: clear diagnosis, practical treatment plan, and reliable follow-up.",
     servicesTitle: "Services",
     servicesText:
-      "Core services include dental repair, root canal treatment, and dental implantation.",
+      "Comprehensive services in dentistry, oral surgery, implantology, and aesthetic medicine.",
     mapTitle: "Find Us",
     mapText:
       "The clinic is located at Saffi Dental Clinic. Open the map for full address details.",
@@ -132,28 +240,303 @@ const translations = {
     languageLabel: "Language",
     services: [
       {
-        value: "repair-restoration",
-        title: "Dental Repair & Restoration",
-        description:
-          "Tooth repair for damage, fractures, and worn enamel with modern restorative techniques.",
+        value: "preventive-dentistry",
+        title: "Preventive Dentistry",
+        description: "Prevents dental problems before they appear.",
+        items: [
+          "Dental scaling (professional cleaning)",
+          "Fluoride therapy",
+          "Fissure sealing",
+          "Periodic check-up visit",
+          "Professional oral hygiene",
+        ],
       },
       {
-        value: "root-canal",
-        title: "Root Canal Treatment",
-        description:
-          "Precise root canal care to remove infection, protect the tooth, and reduce pain.",
+        value: "conservative-dentistry",
+        title: "Conservative Dentistry",
+        description: "Repairs teeth damaged by decay or trauma.",
+        items: [
+          "Filling (reconstruction)",
+          "Aesthetic reconstruction",
+          "Inlays (composite or ceramic)",
+          "Therapeutic sealing",
+        ],
       },
       {
-        value: "implantation",
-        title: "Dental Implantation",
-        description:
-          "Dental implants designed to restore function, comfort, and a natural smile.",
+        value: "endodontics",
+        title: "Endodontics (Root Canal Therapy)",
+        description: "Treats internal tooth infection.",
+        items: [
+          "Root canal therapy",
+          "Root canal retreatment",
+          "Pulp capping",
+        ],
       },
       {
-        value: "checkups",
-        title: "Preventive Checkups",
-        description:
-          "Routine visits, cleaning, and early detection to keep your oral health stable.",
+        value: "periodontology",
+        title: "Periodontology",
+        description: "Treats gums and supporting bone.",
+        items: [
+          "Curettage",
+          "Scaling and root planing",
+          "Gingivitis therapy",
+          "Periodontitis therapy",
+          "Periodontal surgery",
+        ],
+      },
+      {
+        value: "oral-surgery",
+        title: "Oral Surgery",
+        description: "Surgical procedures for teeth and oral tissues.",
+        items: [
+          "Simple tooth extraction",
+          "Wisdom tooth extraction",
+          "Apicoectomy",
+          "Frenectomy",
+          "Dental implant insertion",
+        ],
+      },
+      {
+        value: "implantology",
+        title: "Implantology",
+        description: "Replaces missing teeth with titanium artificial roots.",
+        items: [
+          "Single implant",
+          "Implant-supported bridge",
+          "Full implant prosthesis (All-on-4 / All-on-6)",
+          "Bone regeneration",
+        ],
+      },
+      {
+        value: "orthodontics",
+        title: "Orthodontics",
+        description: "Aligns teeth and corrects arch position.",
+        items: [
+          "Fixed braces",
+          "Removable appliance",
+          "Clear aligners",
+          "Interceptive orthodontics (for children)",
+          "Post-treatment retention",
+        ],
+      },
+      {
+        value: "dental-prosthetics",
+        title: "Dental Prosthetics",
+        description: "Replaces or covers missing and damaged teeth.",
+        items: [
+          "Crown",
+          "Dental bridge",
+          "Partial removable denture",
+          "Complete denture",
+          "Cast metal partial denture",
+        ],
+      },
+      {
+        value: "aesthetic-dentistry",
+        title: "Aesthetic Dentistry",
+        description: "Improves smile appearance.",
+        items: [
+          "Teeth whitening",
+          "Dental veneers",
+          "Gum contouring",
+          "Aesthetic restorations",
+          "Smile makeover",
+        ],
+      },
+      {
+        value: "pediatric-dentistry",
+        title: "Pediatric Dentistry",
+        description: "Dental care dedicated to children.",
+        items: [
+          "Caries treatment in primary teeth",
+          "Preventive sealants",
+          "Pediatric fluoride therapy",
+          "Space maintainers",
+          "Dental trauma management",
+        ],
+      },
+      {
+        value: "aesthetic-medicine",
+        title: "Aesthetic Medicine",
+        description: "Complementary facial aesthetic treatments.",
+        items: ["Pigmentation and acne treatment", "Fillers", "Botox"],
+      },
+    ],
+  },
+  ar: {
+    metaTitle: "د. سليمان صافي | طبيب أسنان",
+    metaDescription:
+      "ترميم الأسنان، علاج الجذور، وزراعة الأسنان مع الدكتور سليمان صافي.",
+    clinicName: "عيادة سليمان صافي لطب الأسنان",
+    heroTitle: "احجز موعدًا مع الدكتور سليمان صافي",
+    heroText:
+      "طبيب متخرج من جامعة بولونيا. رعاية سريعة وواضحة ومخصصة مع تركيز على ترميم الأسنان، علاج الجذور، وزراعة الأسنان.",
+    points: [
+      "خريج جامعة بولونيا",
+      "حاصل على العديد من الشهادات المهنية",
+      "علاجات مخصصة لكل مريض",
+    ],
+    bookCta: "احجز موعدًا",
+    servicesCta: "عرض الخدمات",
+    callNowLabel: "اتصل الآن",
+    phoneTitle: "أرقام الهاتف",
+    phonePrimary: "+39 320 8406 049",
+    phonePrimaryHref: "+393208406049",
+    phoneSecondary: "+39 051 523 065",
+    phoneSecondaryHref: "+39051523065",
+    form: {
+      nameLabel: "الاسم الكامل",
+      namePlaceholder: "اكتب اسمك الكامل",
+      serviceLabel: "الخدمة",
+      servicePlaceholder: "اختر خدمة",
+      dateLabel: "التاريخ المفضل",
+      notesLabel: "ملاحظات (اختياري)",
+      notesPlaceholder: "اكتب أي تفاصيل مفيدة للموعد",
+      submit: "احجز الموعد",
+      whatsappMessageTitle: "طلب موعد جديد",
+      whatsappHint: "يتم إرسال الطلب إلى العيادة عبر واتساب.",
+      sendingNotice: "جاري إرسال الطلب...",
+      successNotice: "تم إرسال الطلب بنجاح. سنتواصل معك قريبًا.",
+      errorNotice:
+        "الإرسال التلقائي غير متاح. سيتم فتح واتساب برسالة جاهزة.",
+    },
+    aboutTitle: "من هو سليمان؟",
+    aboutText:
+      "الدكتور سليمان صافي طبيب أسنان ذو تأهيل أكاديمي وسريري قوي. منهجه مباشر: تشخيص واضح، خطة علاج عملية، ومتابعة موثوقة لكل مريض.",
+    servicesTitle: "الخدمات",
+    servicesText:
+      "خدمات متكاملة في طب الأسنان، جراحة الفم، زراعة الأسنان، والطب التجميلي.",
+    mapTitle: "موقعنا",
+    mapText:
+      "تقع العيادة في Saffi Dental Clinic. افتح الخريطة لمعرفة العنوان الكامل.",
+    mapEmbedTitle: "خريطة العيادة",
+    mapCta: "افتح في خرائط Google",
+    mapLink: "https://maps.app.goo.gl/F431kso8C3TXYi459",
+    mapEmbedUrl: "https://www.google.com/maps?q=44.5039031,11.3315083&z=16&output=embed",
+    heroImageAlt: "رسم توضيحي لعيادة أسنان",
+    languageLabel: "اللغة",
+    services: [
+      {
+        value: "preventive-dentistry",
+        title: "طب الأسنان الوقائي",
+        description: "يهدف إلى الوقاية من مشاكل الأسنان قبل ظهورها.",
+        items: [
+          "إزالة الجير (تنظيف أسنان احترافي)",
+          "الوقاية بالفلورايد",
+          "سد الشقوق",
+          "زيارة متابعة دورية",
+          "نظافة فموية احترافية",
+        ],
+      },
+      {
+        value: "conservative-dentistry",
+        title: "طب الأسنان الترميمي",
+        description: "يعالج الأسنان المتضررة بسبب التسوس أو الصدمات.",
+        items: [
+          "حشوة (إعادة بناء السن)",
+          "ترميم تجميلي",
+          "إنلاي (كومبوزيت أو سيراميك)",
+          "سد علاجي",
+        ],
+      },
+      {
+        value: "endodontics",
+        title: "علاج جذور الأسنان (سحب العصب)",
+        description: "يعالج العدوى داخل السن.",
+        items: [
+          "علاج الجذور (سحب العصب)",
+          "إعادة علاج الجذور",
+          "تغطية اللب",
+        ],
+      },
+      {
+        value: "periodontology",
+        title: "طب دواعم الأسنان",
+        description: "يعالج اللثة والعظم الداعم للأسنان.",
+        items: [
+          "الكحت اللثوي (Curettage)",
+          "إزالة الجير وكشط الجذور",
+          "علاج التهاب اللثة",
+          "علاج التهاب دواعم الأسنان",
+          "جراحة دواعم الأسنان",
+        ],
+      },
+      {
+        value: "oral-surgery",
+        title: "جراحة الفم",
+        description: "إجراءات جراحية للأسنان والفم.",
+        items: [
+          "قلع سن بسيط",
+          "قلع ضرس العقل",
+          "استئصال ذروة الجذر",
+          "قص اللجام",
+          "زرع غرسات الأسنان",
+        ],
+      },
+      {
+        value: "implantology",
+        title: "زراعة الأسنان",
+        description: "تعوّض الأسنان المفقودة بجذور صناعية من التيتانيوم.",
+        items: [
+          "زرعة واحدة",
+          "جسر مدعوم بالزرعات",
+          "تعويض كامل على الزرعات (All-on-4 / All-on-6)",
+          "تجديد العظم",
+        ],
+      },
+      {
+        value: "orthodontics",
+        title: "تقويم الأسنان",
+        description: "يحاذي الأسنان ويصحح وضعية الفكين.",
+        items: [
+          "تقويم ثابت",
+          "تقويم متحرك",
+          "تقويم شفاف",
+          "تقويم اعتراضي للأطفال",
+          "مثبت ما بعد العلاج",
+        ],
+      },
+      {
+        value: "dental-prosthetics",
+        title: "التركيبات السنية",
+        description: "تعوض أو تغطي الأسنان المفقودة أو المتضررة.",
+        items: [
+          "تاج (كراون)",
+          "جسر أسنان",
+          "طقم متحرك جزئي",
+          "طقم أسنان كامل",
+          "طقم هيكلي معدني",
+        ],
+      },
+      {
+        value: "aesthetic-dentistry",
+        title: "طب الأسنان التجميلي",
+        description: "يحسن مظهر الابتسامة.",
+        items: [
+          "تبييض الأسنان",
+          "قشور خزفية (فينير)",
+          "تجميل اللثة",
+          "ترميمات تجميلية",
+          "تصميم الابتسامة",
+        ],
+      },
+      {
+        value: "pediatric-dentistry",
+        title: "طب أسنان الأطفال",
+        description: "علاجات أسنان مخصصة للأطفال.",
+        items: [
+          "علاج تسوس الأسنان اللبنية",
+          "سد الشقوق الوقائي",
+          "الوقاية بالفلورايد للأطفال",
+          "حافظات المسافة",
+          "علاج إصابات الأسنان",
+        ],
+      },
+      {
+        value: "aesthetic-medicine",
+        title: "الطب التجميلي",
+        description: "علاجات تجميلية مكملة للابتسامة.",
+        items: ["علاج التصبغات وحب الشباب", "فيلر", "بوتوكس"],
       },
     ],
   },
@@ -175,6 +558,7 @@ export async function generateMetadata({ params }) {
       languages: {
         it: "/it",
         en: "/en",
+        ar: "/ar",
       },
     },
   };
@@ -188,8 +572,14 @@ export default async function LocalizedHome({ params }) {
     notFound();
   }
 
+  const isRtl = lang === "ar";
+
   return (
-    <div className="site-shell">
+    <div
+      className={`site-shell${isRtl ? " rtl" : ""}`}
+      dir={isRtl ? "rtl" : "ltr"}
+      lang={lang}
+    >
       <section className="hero-booking" id="appointment">
         <div className="booking-copy">
           <div className="hero-top">
@@ -200,6 +590,9 @@ export default async function LocalizedHome({ params }) {
               </Link>
               <Link className={`lang-pill ${lang === "en" ? "active" : ""}`} href="/en">
                 EN
+              </Link>
+              <Link className={`lang-pill ${lang === "ar" ? "active" : ""}`} href="/ar">
+                AR
               </Link>
             </nav>
           </div>
@@ -242,48 +635,12 @@ export default async function LocalizedHome({ params }) {
             priority
           />
 
-          <form className="appointment-form" id="appointment-form" action="#" method="get">
-            <label htmlFor="fullName">{t.form.nameLabel}</label>
-            <input
-              id="fullName"
-              name="fullName"
-              type="text"
-              placeholder={t.form.namePlaceholder}
-              required
-            />
-
-            <label htmlFor="phone">{t.form.phoneLabel}</label>
-            <div className="phone-input">
-              <span className="phone-country">{t.form.phonePrefix}</span>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                defaultValue=" "
-                pattern={"^\\+39\\s?[0-9\\s]{6,14}$"}
-                title={t.form.phonePatternTitle}
-                placeholder={t.form.phonePlaceholder}
-                required
-              />
-            </div>
-
-            <label htmlFor="service">{t.form.serviceLabel}</label>
-            <select id="service" name="service" required defaultValue="">
-              <option value="" disabled>
-                {t.form.servicePlaceholder}
-              </option>
-              {t.services.map((service) => (
-                <option key={service.value} value={service.value}>
-                  {service.title}
-                </option>
-              ))}
-            </select>
-
-            <label htmlFor="appointmentDate">{t.form.dateLabel}</label>
-            <input id="appointmentDate" name="appointmentDate" type="date" required />
-
-            <button type="submit">{t.form.submit}</button>
-          </form>
+          <AppointmentForm
+            form={t.form}
+            services={t.services}
+            whatsappNumber={t.phonePrimaryHref}
+            locale={lang}
+          />
         </div>
       </section>
 
@@ -313,6 +670,11 @@ export default async function LocalizedHome({ params }) {
                   <h3>{service.title}</h3>
                 </div>
                 <p>{service.description}</p>
+                <ul className="service-list">
+                  {service.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
