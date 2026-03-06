@@ -23,8 +23,9 @@ export default function AppointmentForm({ form, services, locale }) {
     event.preventDefault();
     setStatus("sending");
     setErrorMessage("");
+    const formElement = event.currentTarget;
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(formElement);
     const fullName = String(formData.get("fullName") || "").trim();
     const phone = String(formData.get("phone") || "").trim();
     const email = String(formData.get("email") || "").trim();
@@ -59,7 +60,7 @@ export default function AppointmentForm({ form, services, locale }) {
 
       setStatus("success");
       setShowSuccessPopup(true);
-      event.currentTarget.reset();
+      formElement.reset();
     } catch (error) {
       setStatus("error");
       setShowSuccessPopup(false);
