@@ -1,5 +1,7 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { addAppointment } from "@/lib/appointments-store";
+import { ADMIN_SESSION_COOKIE, isAdminAuthenticated } from "@/lib/admin-auth";
+import { addAppointment, removeAppointmentById } from "@/lib/appointments-store";
 
 const MIN_PHONE_DIGITS = 6;
 
@@ -14,8 +16,19 @@ const isEmailValid = (value) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
 
+const requireAdminAuth = async () => {
+  const cookieStore = await cookies();
+  const sessionValue = cookieStore.get(ADMIN_SESSION_COOKIE)?.value;
+  return isAdminAuthenticated(sessionValue);
+};
+
 export async function POST(request) {
   try {
+    const authenticated = await requireAdminAuth();
+    if (!authenticated) {
+      return NextResponse.json({ ok: false, error: "Unauthorized." }, { status: 401 });
+    }
+
     const payload = await request.json();
     const fullName = String(payload.fullName || "").trim();
     const phone = String(payload.phone || "").trim();
@@ -46,7 +59,7 @@ export async function POST(request) {
       );
     }
 
-    await addAppointment({
+    const appointment = await addAppointment({
       fullName,
       phone,
       email,
@@ -56,10 +69,41 @@ export async function POST(request) {
       locale,
     });
 
-    return NextResponse.json({ ok: true });
-  } catch (error) {
+    return NextResponse.json({ ok: true, appointment });
+  } catch {
     return NextResponse.json(
-      { ok: false, error: `Unexpected error: ${error instanceof Error ? error.message : "unknown"}` },
+      { ok: false, error: "Unexpected server error." },
+      { status: 500 },
+    );
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    const authenticated = await requireAdminAuth();
+    if (!authenticated) {
+      return NextResponse.json({ ok: false, error: "Unauthorized." }, { status: 401 });
+    }
+
+    const payload = await request.json();
+    const id = String(payload?.id || "").trim();
+
+    if (!id) {
+      return NextResponse.json(
+        { ok: false, error: "Appointment id is required." },
+        { status: 400 },
+      );
+    }
+
+    const removed = await removeAppointmentById(id);
+    if (!removed) {
+      return NextResponse.json({ ok: false, error: "Appointment not found." }, { status: 404 });
+    }
+
+    return NextResponse.json({ ok: true });
+  } catch {
+    return NextResponse.json(
+      { ok: false, error: "Unexpected server error." },
       { status: 500 },
     );
   }

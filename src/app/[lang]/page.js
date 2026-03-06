@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AppointmentForm from "@/components/AppointmentForm";
+import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 
 const locales = ["it", "en", "ar"];
 const WHATSAPP_NOTIFY_TO = "393713946628";
@@ -28,22 +29,29 @@ const translations = {
     phonePrimaryHref: "+393713946628",
     phoneSecondary: "+39 051 523 065",
     phoneSecondaryHref: "+39051523065",
+    floatingWhatsappLabel: "Apri chat WhatsApp",
+    floatingWhatsappTooltip: "Chatta su WhatsApp",
+    floatingWhatsappPrefill: "Ciao, vorrei informazioni per un appuntamento.",
     form: {
       nameLabel: "Nome e Cognome",
       namePlaceholder: "Il tuo nome completo",
+      phoneLabel: "Telefono",
+      phonePlaceholder: "+39 371 394 6628",
+      emailLabel: "Email (opzionale)",
+      emailPlaceholder: "nome@esempio.com",
       serviceLabel: "Servizio",
       servicePlaceholder: "Seleziona un servizio",
       dateLabel: "Data preferita",
       notesLabel: "Note (opzionale)",
       notesPlaceholder: "Scrivi informazioni utili per l'appuntamento",
       submit: "Prenota Appuntamento",
-      whatsappMessageTitle: "Nuova richiesta appuntamento",
-      whatsappHint: "La richiesta viene inviata su WhatsApp alla clinica.",
       sendingNotice: "Invio in corso...",
       successNotice:
         "Richiesta inviata con successo. Ti contatteremo presto.",
-      errorNotice:
-        "Invio automatico non disponibile. Si aprira WhatsApp con il messaggio pronto.",
+      errorNotice: "Invio non riuscito. Riprova.",
+      successPopupTitle: "Appuntamento prenotato",
+      successPopupText: "Abbiamo ricevuto la tua richiesta.",
+      successPopupButton: "Chiudi",
     },
     aboutTitle: "Chi e Soliman?",
     aboutText:
@@ -204,25 +212,32 @@ const translations = {
     callNowLabel: "Call now",
     phoneTitle: "Phone Contacts",
     phonePrimary: "+39 3713946628",
-    phonePrimaryHref: "+393208406049",
+    phonePrimaryHref: "+393713946628",
     phoneSecondary: "+39 051 523 065",
     phoneSecondaryHref: "+39051523065",
+    floatingWhatsappLabel: "Open WhatsApp chat",
+    floatingWhatsappTooltip: "Chat on WhatsApp",
+    floatingWhatsappPrefill: "Hello, I would like information about an appointment.",
     form: {
       nameLabel: "Full Name",
       namePlaceholder: "Your full name",
+      phoneLabel: "Phone Number",
+      phonePlaceholder: "+39 371 394 6628",
+      emailLabel: "Email (optional)",
+      emailPlaceholder: "name@example.com",
       serviceLabel: "Service",
       servicePlaceholder: "Select a service",
       dateLabel: "Preferred Date",
       notesLabel: "Notes (optional)",
       notesPlaceholder: "Write any useful details for the appointment",
       submit: "Take an Appointment",
-      whatsappMessageTitle: "New appointment request",
-      whatsappHint: "Your request is sent to the clinic on WhatsApp.",
       sendingNotice: "Sending request...",
       successNotice:
         "Request sent successfully. We will contact you shortly.",
-      errorNotice:
-        "Automatic sending is unavailable. WhatsApp will open with a prefilled message.",
+      errorNotice: "Sending failed. Please try again.",
+      successPopupTitle: "Appointment taken",
+      successPopupText: "We received your appointment request.",
+      successPopupButton: "Close",
     },
     aboutTitle: "Who is Soliman?",
     aboutText:
@@ -385,21 +400,28 @@ const translations = {
     phonePrimaryHref: "+393713946628",
     phoneSecondary: "+39 051 523 065",
     phoneSecondaryHref: "+39051523065",
+    floatingWhatsappLabel: "افتح محادثة واتساب",
+    floatingWhatsappTooltip: "تواصل عبر واتساب",
+    floatingWhatsappPrefill: "مرحبًا، أود الاستفسار عن موعد.",
     form: {
       nameLabel: "الاسم الكامل",
       namePlaceholder: "اكتب اسمك الكامل",
+      phoneLabel: "رقم الهاتف",
+      phonePlaceholder: "+39 371 394 6628",
+      emailLabel: "البريد الإلكتروني (اختياري)",
+      emailPlaceholder: "name@example.com",
       serviceLabel: "الخدمة",
       servicePlaceholder: "اختر خدمة",
       dateLabel: "التاريخ المفضل",
       notesLabel: "ملاحظات (اختياري)",
       notesPlaceholder: "اكتب أي تفاصيل مفيدة للموعد",
       submit: "احجز الموعد",
-      whatsappMessageTitle: "طلب موعد جديد",
-      whatsappHint: "يتم إرسال الطلب إلى العيادة عبر واتساب.",
       sendingNotice: "جاري إرسال الطلب...",
       successNotice: "تم إرسال الطلب بنجاح. سنتواصل معك قريبًا.",
-      errorNotice:
-        "الإرسال التلقائي غير متاح. سيتم فتح واتساب برسالة جاهزة.",
+      errorNotice: "فشل الإرسال. حاول مرة أخرى.",
+      successPopupTitle: "تم حجز الموعد",
+      successPopupText: "تم استلام طلب الموعد بنجاح.",
+      successPopupButton: "إغلاق",
     },
     aboutTitle: "من هو سليمان؟",
     aboutText:
@@ -639,7 +661,6 @@ export default async function LocalizedHome({ params }) {
           <AppointmentForm
             form={t.form}
             services={t.services}
-            whatsappNumber={WHATSAPP_NOTIFY_TO}
             locale={lang}
           />
         </div>
@@ -704,6 +725,12 @@ export default async function LocalizedHome({ params }) {
           </a>
         </section>
       </main>
+      <FloatingWhatsAppButton
+        phoneNumber={WHATSAPP_NOTIFY_TO}
+        label={t.floatingWhatsappLabel}
+        tooltip={t.floatingWhatsappTooltip}
+        prefilledMessage={t.floatingWhatsappPrefill}
+      />
     </div>
   );
 }

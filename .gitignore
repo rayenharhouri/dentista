@@ -51,6 +51,9 @@ yarn-error.log*
 tmp/
 temp/
 
+# local data store
+/data/appointments.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
