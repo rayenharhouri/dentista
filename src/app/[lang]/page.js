@@ -5,7 +5,7 @@ import AppointmentForm from "@/components/AppointmentForm";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 
 const locales = ["it", "en", "ar"];
-const WHATSAPP_NOTIFY_TO = "393713946628";
+const WHATSAPP_NOTIFY_TO = "39344 786 1537";
 
 const translations = {
   it: {
@@ -25,8 +25,8 @@ const translations = {
     servicesCta: "Scopri i Servizi",
     callNowLabel: "Chiama ora",
     phoneTitle: "Contatti Telefonici",
-    phonePrimary: "+39 3713946628",
-    phonePrimaryHref: "+393713946628",
+    phonePrimary: "+39 344 786 1537",
+    phonePrimaryHref: "+39344 786 1537",
     phoneSecondary: "+39 051 523 065",
     phoneSecondaryHref: "+39051523065",
     floatingWhatsappLabel: "Apri chat WhatsApp",
@@ -211,8 +211,8 @@ const translations = {
     servicesCta: "View Services",
     callNowLabel: "Call now",
     phoneTitle: "Phone Contacts",
-    phonePrimary: "+39 3713946628",
-    phonePrimaryHref: "+393713946628",
+    phonePrimary: "+39 344 786 1537",
+    phonePrimaryHref: "+39344 786 1537",
     phoneSecondary: "+39 051 523 065",
     phoneSecondaryHref: "+39051523065",
     floatingWhatsappLabel: "Open WhatsApp chat",
@@ -396,8 +396,8 @@ const translations = {
     servicesCta: "عرض الخدمات",
     callNowLabel: "اتصل الآن",
     phoneTitle: "أرقام الهاتف",
-    phonePrimary: "+39 3713946628",
-    phonePrimaryHref: "+393713946628",
+    phonePrimary: "+39 344 786 1537",
+    phonePrimaryHref: "+39344 786 1537",
     phoneSecondary: "+39 051 523 065",
     phoneSecondaryHref: "+39051523065",
     floatingWhatsappLabel: "افتح محادثة واتساب",
