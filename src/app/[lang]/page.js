@@ -5,7 +5,7 @@ import AppointmentForm from "@/components/AppointmentForm";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 
 const locales = ["it", "en", "ar"];
-const WHATSAPP_NOTIFY_TO = "39371 394 6628";
+const WHATSAPP_NOTIFY_TO = "+393208406049";
 
 const translations = {
   it: {
@@ -25,8 +25,8 @@ const translations = {
     servicesCta: "Scopri i Servizi",
     callNowLabel: "Chiama ora",
     phoneTitle: "Contatti Telefonici",
-    phonePrimary: "+39 371 394 6628",
-    phonePrimaryHref: "+39371 394 6628",
+    phonePrimary: "+39 320 840 6049",
+    phonePrimaryHref: "+39 320 840 6049",
     phoneSecondary: "+39 051 523 065",
     phoneSecondaryHref: "+39051523065",
     floatingWhatsappLabel: "Apri chat WhatsApp",
@@ -36,7 +36,7 @@ const translations = {
       nameLabel: "Nome e Cognome",
       namePlaceholder: "Il tuo nome completo",
       phoneLabel: "Telefono",
-      phonePlaceholder: "+39 371 394 6628",
+      phonePlaceholder: "+39 320 840 6049",
       emailLabel: "Email (opzionale)",
       emailPlaceholder: "nome@esempio.com",
       serviceLabel: "Servizio",
@@ -211,8 +211,8 @@ const translations = {
     servicesCta: "View Services",
     callNowLabel: "Call now",
     phoneTitle: "Phone Contacts",
-    phonePrimary: "+39 371 394 6628",
-    phonePrimaryHref: "+39371 394 6628",
+    phonePrimary: "+39 320 840 6049",
+    phonePrimaryHref: "+39 320 840 6049",
     phoneSecondary: "+39 051 523 065",
     phoneSecondaryHref: "+39051523065",
     floatingWhatsappLabel: "Open WhatsApp chat",
@@ -222,7 +222,7 @@ const translations = {
       nameLabel: "Full Name",
       namePlaceholder: "Your full name",
       phoneLabel: "Phone Number",
-      phonePlaceholder: "+39 371 394 6628",
+      phonePlaceholder: "+39 320 840 6049",
       emailLabel: "Email (optional)",
       emailPlaceholder: "name@example.com",
       serviceLabel: "Service",
@@ -396,8 +396,8 @@ const translations = {
     servicesCta: "عرض الخدمات",
     callNowLabel: "اتصل الآن",
     phoneTitle: "أرقام الهاتف",
-    phonePrimary: "+39 371 394 6628",
-    phonePrimaryHref: "+39371 394 6628",
+    phonePrimary: "+39 320 840 6049",
+    phonePrimaryHref: "+39 320 840 6049",
     phoneSecondary: "+39 051 523 065",
     phoneSecondaryHref: "+39051523065",
     floatingWhatsappLabel: "افتح محادثة واتساب",
@@ -407,7 +407,7 @@ const translations = {
       nameLabel: "الاسم الكامل",
       namePlaceholder: "اكتب اسمك الكامل",
       phoneLabel: "رقم الهاتف",
-      phonePlaceholder: "+39 371 394 6628",
+      phonePlaceholder: "+39 320 840 6049",
       emailLabel: "البريد الإلكتروني (اختياري)",
       emailPlaceholder: "name@example.com",
       serviceLabel: "الخدمة",
