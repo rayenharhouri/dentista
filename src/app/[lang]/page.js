@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import AppointmentForm from "@/components/AppointmentForm";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
+import FloatingLocationButton from "@/components/FloatingLocationButton";
 
 const locales = ["it", "en", "ar"];
 const WHATSAPP_NOTIFY_TO = "+393208406049";
@@ -32,6 +33,8 @@ const translations = {
     floatingWhatsappLabel: "Apri chat WhatsApp",
     floatingWhatsappTooltip: "Chatta su WhatsApp",
     floatingWhatsappPrefill: "Ciao, vorrei informazioni per un appuntamento.",
+    floatingLocationLabel: "Vai alla mappa",
+    floatingLocationTooltip: "Vedi posizione",
     form: {
       nameLabel: "Nome e Cognome",
       namePlaceholder: "Il tuo nome completo",
@@ -218,6 +221,8 @@ const translations = {
     floatingWhatsappLabel: "Open WhatsApp chat",
     floatingWhatsappTooltip: "Chat on WhatsApp",
     floatingWhatsappPrefill: "Hello, I would like information about an appointment.",
+    floatingLocationLabel: "Go to location",
+    floatingLocationTooltip: "View location",
     form: {
       nameLabel: "Full Name",
       namePlaceholder: "Your full name",
@@ -403,6 +408,8 @@ const translations = {
     floatingWhatsappLabel: "افتح محادثة واتساب",
     floatingWhatsappTooltip: "تواصل عبر واتساب",
     floatingWhatsappPrefill: "مرحبًا، أود الاستفسار عن موعد.",
+    floatingLocationLabel: "الانتقال إلى الموقع",
+    floatingLocationTooltip: "عرض الموقع",
     form: {
       nameLabel: "الاسم الكامل",
       namePlaceholder: "اكتب اسمك الكامل",
@@ -725,11 +732,24 @@ export default async function LocalizedHome({ params }) {
           </a>
         </section>
       </main>
+      <footer className="site-footer">
+        <a
+          href="https://linktr.ee/rayenharhouri"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          designed by Rayen HARHOURI © 2026
+        </a>
+      </footer>
       <FloatingWhatsAppButton
         phoneNumber={WHATSAPP_NOTIFY_TO}
         label={t.floatingWhatsappLabel}
         tooltip={t.floatingWhatsappTooltip}
         prefilledMessage={t.floatingWhatsappPrefill}
+      />
+      <FloatingLocationButton
+        label={t.floatingLocationLabel}
+        tooltip={t.floatingLocationTooltip}
       />
     </div>
   );
