@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CheckCircleIcon, CalendarIcon } from "@/components/Icons";
 
 export default function AppointmentForm({ form, services, locale }) {
   const [status, setStatus] = useState("idle");
@@ -71,56 +72,82 @@ export default function AppointmentForm({ form, services, locale }) {
   return (
     <>
       <form className="appointment-form" id="appointment-form" onSubmit={handleSubmit}>
-        <label htmlFor="fullName">{form.nameLabel}</label>
-        <input
-          id="fullName"
-          name="fullName"
-          type="text"
-          placeholder={form.namePlaceholder}
-          required
-        />
+        {form.heading ? (
+          <div className="form-head">
+            <h3>{form.heading}</h3>
+            {form.subheading ? <p>{form.subheading}</p> : null}
+          </div>
+        ) : null}
 
-        <label htmlFor="phone">{form.phoneLabel}</label>
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          placeholder={form.phonePlaceholder}
-          required
-        />
+        <div className="form-row">
+          <div className="form-field">
+            <label htmlFor="fullName">{form.nameLabel}</label>
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              placeholder={form.namePlaceholder}
+              required
+            />
+          </div>
 
-        <label htmlFor="email">{form.emailLabel}</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder={form.emailPlaceholder}
-        />
+          <div className="form-field">
+            <label htmlFor="phone">{form.phoneLabel}</label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              placeholder={form.phonePlaceholder}
+              required
+            />
+          </div>
+        </div>
 
-        <label htmlFor="service">{form.serviceLabel}</label>
-        <select id="service" name="service" required defaultValue="">
-          <option value="" disabled>
-            {form.servicePlaceholder}
-          </option>
-          {services.map((service) => (
-            <option key={service.value} value={service.value}>
-              {service.title}
+        <div className="form-row">
+          <div className="form-field">
+            <label htmlFor="email">{form.emailLabel}</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder={form.emailPlaceholder}
+            />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="appointmentDate">{form.dateLabel}</label>
+            <input id="appointmentDate" name="appointmentDate" type="date" required />
+          </div>
+        </div>
+
+        <div className="form-field">
+          <label htmlFor="service">{form.serviceLabel}</label>
+          <select id="service" name="service" required defaultValue="">
+            <option value="" disabled>
+              {form.servicePlaceholder}
             </option>
-          ))}
-        </select>
+            {services.map((service) => (
+              <option key={service.value} value={service.value}>
+                {service.title}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <label htmlFor="appointmentDate">{form.dateLabel}</label>
-        <input id="appointmentDate" name="appointmentDate" type="date" required />
+        <div className="form-field">
+          <label htmlFor="notes">{form.notesLabel}</label>
+          <textarea
+            id="notes"
+            name="notes"
+            placeholder={form.notesPlaceholder}
+          />
+        </div>
 
-        <label htmlFor="notes">{form.notesLabel}</label>
-        <textarea
-          id="notes"
-          name="notes"
-          className="notes-input"
-          placeholder={form.notesPlaceholder}
-        />
+        <button type="submit" className="btn btn-primary">
+          <CalendarIcon />
+          {status === "sending" ? form.sendingNotice : form.submit}
+        </button>
 
-        <button type="submit">{form.submit}</button>
         {status === "sending" ? <p className="status-note">{form.sendingNotice}</p> : null}
         {status === "success" ? <p className="status-note success">{form.successNotice}</p> : null}
         {status === "error" ? (
@@ -131,11 +158,14 @@ export default function AppointmentForm({ form, services, locale }) {
       {showSuccessPopup ? (
         <div className="success-popup-backdrop" role="dialog" aria-modal="true">
           <div className="success-popup-card">
+            <div className="success-popup-icon">
+              <CheckCircleIcon />
+            </div>
             <h3>{form.successPopupTitle}</h3>
             <p>{form.successPopupText}</p>
             <button
               type="button"
-              className="success-popup-close"
+              className="btn btn-primary success-popup-close"
               onClick={() => setShowSuccessPopup(false)}
             >
               {form.successPopupButton}
